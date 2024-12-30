@@ -5,7 +5,10 @@ import { Component, Input, input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './dashboard-item.component.html',
-  styleUrl: './dashboard-item.component.css'
+  styleUrl: './dashboard-item.component.css',
+  // host: {
+  //   class: 'dashboard-item',
+  // }
 })
 export class DashboardItemComponent {
   // @Input({required: true}) image!: { src: string; alt: string };
