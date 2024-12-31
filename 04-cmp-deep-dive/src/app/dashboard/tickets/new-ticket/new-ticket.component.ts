@@ -13,7 +13,6 @@ import { ControlComponent } from '../../../shared/control/control.component';
 })
 export class NewTicketComponent {
   // @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
-  // using viewChild() signal
   private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
   onSubmit(title: string, ticketText: String) {
