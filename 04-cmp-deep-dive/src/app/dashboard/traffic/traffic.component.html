@@ -2,7 +2,6 @@
 
 <div id="chart">
   @for (dataPoint of dummyTrafficData; track dataPoint.id) {
-    <!-- example of using style binding -->
   <div [style.height]="(dataPoint.value / maxTraffic) * 100 + '%'"></div>
   }
 </div>
