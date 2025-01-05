@@ -8,7 +8,7 @@ import { Directive, ElementRef, inject, input } from '@angular/core';
   },
 })
 export class SafeLinkDirective {
-  queryParam = input('myapp');
+  queryParam = input('myapp', { alias: 'appSafeLink' });
   private hostElementRef = inject<ElementRef<HTMLAnchorElement>>(ElementRef);
 
   constructor() {
