@@ -19,6 +19,10 @@ export class SafeLinkDirective {
     const wantsToLeave = window.confirm('Do you want to leave the app?');
 
     if (wantsToLeave) {
+      // const address = (event.target as HTMLAnchorElement).href;
+      // (event.target as HTMLAnchorElement).href =
+      //   address + '?from=' + this.queryParam();
+      // using ElementRef
       const address = this.hostElementRef.nativeElement.href;
       this.hostElementRef.nativeElement.href =
         address + '?from=' + this.queryParam();
