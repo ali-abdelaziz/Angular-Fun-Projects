@@ -14,7 +14,7 @@ export class TasksService {
     const newTask: Task = {
       ...taskData,
       id: Math.random().toString(),
-      status: 'OPEN'
+      status: 'OPEN',
     };
     this.tasks.update((oldTasks) => [...oldTasks, newTask]);
   }
