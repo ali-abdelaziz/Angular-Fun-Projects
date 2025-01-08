@@ -1,19 +1,23 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, Input, computed, inject, input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { TASK_STATUS_OPTIONS, Task, TaskStatus } from '../../task.model';
-import { TasksServiceToken } from '../../../app.module';
+import { TasksServiceToken } from '../../../../main';
 
 @Component({
   selector: 'app-task-item',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
   private tasksService = inject(TasksServiceToken);
   taskStatusOptions = inject(TASK_STATUS_OPTIONS);
-  task = input.required<Task>();
-  taskStatus = computed(() => {
-    switch (this.task().status) {
+  @Input({ required: true }) task!: Task;
+
+  get taskStatus() {
+    switch (this.task.status) {
       case 'OPEN':
         return 'Open';
       case 'IN_PROGRESS':
@@ -23,7 +27,7 @@ export class TaskItemComponent {
       default:
         return 'Open';
     }
-  });
+  }
 
   onChangeTaskStatus(taskId: string, status: string) {
     let newStatus: TaskStatus = 'OPEN';
