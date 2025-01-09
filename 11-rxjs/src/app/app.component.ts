@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 
-import { interval, take } from 'rxjs';
+import { interval, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const subscription = interval(1000)
     .pipe(
+      map(val => val * 2),
       take(5)
     )
     .subscribe({
