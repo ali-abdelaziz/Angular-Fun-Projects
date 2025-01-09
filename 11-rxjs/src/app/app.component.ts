@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, effect, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, effect, inject, signal } from '@angular/core';
 
 import { interval, map, take } from 'rxjs';
 
@@ -9,6 +9,8 @@ import { interval, map, take } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   clickCount = signal(0);
+  interval = signal(0);
+  doubleInterval = computed(() => this.interval() * 2);
   private destroyRef = inject(DestroyRef);
 
   constructor() {
@@ -18,6 +20,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // setInterval(() => {
+    //   this.interval.update(prevIntervalNumber => prevIntervalNumber + 1);
+    //   // update the signal value
+    // }, 1000);
     // const subscription = interval(1000)
     // .pipe(
     //   map(val => val * 2),
