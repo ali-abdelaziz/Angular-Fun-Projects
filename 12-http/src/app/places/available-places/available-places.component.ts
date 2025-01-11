@@ -23,8 +23,14 @@ export class AvailablePlacesComponent implements OnInit {
   ngOnInit() {
     const subscription = this.httpClient
       .get<{ places: Place[] }>('http://localhost:3000/places')
-      .subscribe((resData) => {
-        next: console.log(resData.places);
+      .pipe(
+        map((resData) => resData.places)
+      )
+      .subscribe({
+        next: (places) => {
+          console.log(places);
+          this.places.set(places);
+        },
       });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
