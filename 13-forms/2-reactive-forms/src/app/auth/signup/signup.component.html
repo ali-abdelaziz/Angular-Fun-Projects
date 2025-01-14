@@ -1,10 +1,10 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h2>Welcome on board!</h2>
   <p>We just need a little bit of data from you to get you started 🚀</p>
 
   <div class="control">
     <label for="email">Email</label>
-    <input id="email" type="email" name="email" />
+    <input id="email" type="email" name="email" formControlName="email" />
   </div>
 
   <div class="control-row">
@@ -14,6 +14,7 @@
         id="password"
         type="password"
         name="password"
+        formControlName="password"
       />
     </div>
 
@@ -141,7 +142,7 @@
   </div>
 
   <p class="form-actions">
-    <button type="reset" class="button button-flat">Reset</button>
+    <button type="button" class="button button-flat" (click)="onReset()">Reset</button>
     <button type="submit" class="button">Sign up</button>
   </p>
 </form>
