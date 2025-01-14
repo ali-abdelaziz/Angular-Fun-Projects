@@ -146,4 +146,10 @@
     </button>
     <button type="submit" class="button">Sign up</button>
   </p>
+
+  @if (form.touched && form.invalid) {
+    <p class="control-error">
+      Invalid form - please check your input data.
+    </p>
+  }
 </form>
