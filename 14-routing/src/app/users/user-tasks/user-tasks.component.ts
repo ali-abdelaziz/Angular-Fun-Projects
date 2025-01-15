@@ -1,6 +1,7 @@
-import { Component, computed, inject, Input, input } from '@angular/core';
+import { Component, computed, DestroyRef, inject, Input, input, OnInit } from '@angular/core';
 
 import { UsersService } from '../users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
@@ -8,17 +9,33 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent {
-  userId = input.required<string>();
-  // use @Input() instead of input()
+export class UserTasksComponent implements OnInit {
+  // use input() instead of @Input() to display user name in the template
+  // userId = input.required<string>();
+  userName = '';
+
+  // use @Input() instead of input() to display user name in the template
   // @Input({required: true}) userId!: string;
   // get userName() {
   //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
   // }
 
-  private usersService = inject(UsersService);
 
-  userName = computed(
-    () => this.usersService.users.find((u) => u.id === this.userId())?.name
-  );
+  private usersService = inject(UsersService);
+  private activatedRoute = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
+
+  // userName = computed(
+  //   () => this.usersService.users.find((u) => u.id === this.userId())?.name
+  // );
+
+  ngOnInit() {
+    // use paramMap observable to display user name in the template
+    console.log(this.activatedRoute);
+    const subscription = this.activatedRoute.paramMap.subscribe((params) => {
+      this.userName = this.usersService.users.find((u) => u.id === params.get('userId'))?.name || '';
+    });
+
+    this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
 }
