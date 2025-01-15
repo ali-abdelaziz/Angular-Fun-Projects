@@ -10,11 +10,20 @@ export const routes: Routes = [
   {
     path: '', // <your-domain>/
     component: NoTaskComponent,
+
+    // redirectTo: '/users/u1',
+    // pathMatch: 'prefix' // detects an error as every path is starting with ''
+    // pathMatch: 'full'
   },
   {
     path: 'users/:userId', // <your-domain>/users/<uid>
     component: UserTasksComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'tasks',
+        pathMatch: 'full'
+      },
       {
         path: 'tasks', // <your-domain>/users/<uid>/tasks
         component: TasksComponent
