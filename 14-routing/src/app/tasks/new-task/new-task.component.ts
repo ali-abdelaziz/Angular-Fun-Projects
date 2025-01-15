@@ -1,8 +1,8 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 import { TasksService } from '../tasks.service';
-import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-new-task',
