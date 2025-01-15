@@ -1,11 +1,19 @@
-import { Component, computed, DestroyRef, inject, Input, input, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  OnInit,
+  computed,
+  inject,
+  input,
+} from '@angular/core';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 
 import { UsersService } from '../users.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-tasks',
   standalone: true,
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
@@ -19,8 +27,6 @@ export class UserTasksComponent implements OnInit {
   // get userName() {
   //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
   // }
-
-
   private usersService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
