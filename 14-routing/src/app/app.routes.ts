@@ -18,6 +18,7 @@ export const routes: Routes = [
     path: 'users/:userId', // <your-domain>/users/<uid>
     component: UserTasksComponent,
     children: userRoutes,
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange', // control when the guards and resolvers are run
     data: {
       message: 'Hello from the route',
     },
