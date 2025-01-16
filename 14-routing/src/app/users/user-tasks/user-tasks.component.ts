@@ -17,7 +17,7 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent {
+export class UserTasksComponent implements OnInit {
   // use input() instead of @Input() to display user name in the template
   // userId = input.required<string>();
   // userName = '';
@@ -30,23 +30,27 @@ export class UserTasksComponent {
     //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
     // }
   // private usersService = inject(UsersService);
-  // private activatedRoute = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
   // private destroyRef = inject(DestroyRef);
 
   // userName = computed(
   //   () => this.usersService.users.find((u) => u.id === this.userId())?.name
   // );
 
-  // ngOnInit() {
-  //   console.log('Input Data: ' + this.message());
-  //   // use paramMap observable to display user name in the template
-  //   console.log(this.activatedRoute);
-  //   const subscription = this.activatedRoute.paramMap.subscribe((params) => {
-  //     this.userName = this.usersService.users.find((u) => u.id === params.get('userId'))?.name || '';
-  //   });
+  ngOnInit() {
+    // accessing data from the route
+    this.activatedRoute.data.subscribe((data) => {
+      console.log('Data: ' + data['userName'] + ' - ' + data['message']);
+    })
+    // console.log('Input Data: ' + this.message());
+    // // use paramMap observable to display user name in the template
+    // console.log(this.activatedRoute);
+    // const subscription = this.activatedRoute.paramMap.subscribe((params) => {
+    //   this.userName = this.usersService.users.find((u) => u.id === params.get('userId'))?.name || '';
+    // });
 
-  //   this.destroyRef.onDestroy(() => subscription.unsubscribe());
-  // }
+    // this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  }
 }
 
 export const resolveUserName: ResolveFn<string> = (
