@@ -6,7 +6,7 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet, RouterStateSnapshot } from '@angular/router';
 
 import { UsersService } from '../users.service';
 
@@ -17,33 +17,46 @@ import { UsersService } from '../users.service';
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
 })
-export class UserTasksComponent implements OnInit {
+export class UserTasksComponent {
   // use input() instead of @Input() to display user name in the template
   // userId = input.required<string>();
-  userName = '';
+  // userName = '';
+  userName = input.required<string>();
+  message = input.required<string>();
 
   // use @Input() instead of input() to display user name in the template
   // @Input({required: true}) userId!: string;
   // get userName() {
-  //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
-  // }
-  message = input.required<string>();
-  private usersService = inject(UsersService);
-  private activatedRoute = inject(ActivatedRoute);
-  private destroyRef = inject(DestroyRef);
+    //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
+    // }
+  // private usersService = inject(UsersService);
+  // private activatedRoute = inject(ActivatedRoute);
+  // private destroyRef = inject(DestroyRef);
 
   // userName = computed(
   //   () => this.usersService.users.find((u) => u.id === this.userId())?.name
   // );
 
-  ngOnInit() {
-    console.log('Input Data: ' + this.message());
-    // use paramMap observable to display user name in the template
-    console.log(this.activatedRoute);
-    const subscription = this.activatedRoute.paramMap.subscribe((params) => {
-      this.userName = this.usersService.users.find((u) => u.id === params.get('userId'))?.name || '';
-    });
+  // ngOnInit() {
+  //   console.log('Input Data: ' + this.message());
+  //   // use paramMap observable to display user name in the template
+  //   console.log(this.activatedRoute);
+  //   const subscription = this.activatedRoute.paramMap.subscribe((params) => {
+  //     this.userName = this.usersService.users.find((u) => u.id === params.get('userId'))?.name || '';
+  //   });
 
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
-  }
+  //   this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  // }
 }
+
+export const resolveUserName: ResolveFn<string> = (
+  activatedRoute: ActivatedRouteSnapshot,
+  routerState: RouterStateSnapshot
+) => {
+  const usersService = inject(UsersService);
+  const userName =
+    usersService.users.find(
+      (u) => u.id === activatedRoute.paramMap.get('userId')
+    )?.name || '';
+  return userName;
+};
