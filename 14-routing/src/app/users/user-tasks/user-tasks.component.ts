@@ -27,6 +27,7 @@ export class UserTasksComponent implements OnInit {
   // get userName() {
   //   return this.usersService.users.find((u) => u.id === this.userId)?.name;
   // }
+  message = input.required<string>();
   private usersService = inject(UsersService);
   private activatedRoute = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
@@ -36,6 +37,7 @@ export class UserTasksComponent implements OnInit {
   // );
 
   ngOnInit() {
+    console.log('Input Data: ' + this.message());
     // use paramMap observable to display user name in the template
     console.log(this.activatedRoute);
     const subscription = this.activatedRoute.paramMap.subscribe((params) => {
