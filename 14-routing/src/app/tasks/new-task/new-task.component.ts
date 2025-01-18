@@ -1,6 +1,6 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { CanDeactivateFn, Router, RouterLink } from '@angular/router';
 
 import { TasksService } from '../tasks.service';
 
@@ -34,4 +34,12 @@ export class NewTaskComponent {
       replaceUrl: true,
     });
   }
+}
+
+// add canDeactivate guard to prevent user from leaving the page if they have unsaved changes
+export const canLeaveEditPage: CanDeactivateFn<NewTaskComponent> = (component) => {
+  if (component.enteredTitle() || component.enteredSummary() || component.enteredDate()) {
+    return confirm('You have unsaved changes. Are you sure you want to leave?');
+  }
+  return true;
 }
